@@ -1,0 +1,52 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* App.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: #f5f7fa;
+}
+
+.main-container {
+  padding: 16px;
+}
+
+/* Mejora la visualización del código */
+pre {
+  border-radius: 8px;
+  padding: 16px !important;
+  font-size: 14px !important;
+}
+
+/* Efectos de transición suaves */
+.MuiCard-root, .MuiButton-root, .MuiListItemButton-root {
+  transition: all 0.3s ease;
+}
+
+/* Mejora el scroll */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 
