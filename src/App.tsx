@@ -12,21 +12,34 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `
 
-// Contenedor principal con gradiente
+// Contenedor principal
 const MainContainer = styled(Container)(({ theme }) => ({
   minHeight: '100vh',
   padding: theme.spacing(3),
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  
+  '@media (max-width: 600px)': {
+    padding: '16px !important',
+    alignItems: 'flex-start',
+    paddingTop: '40px !important',
+  },
 }))
 
-// Tarjeta de contenido con glassmorphism
-const ContentCard = styled(Box)(() => ({
-  backdropFilter: 'blur(10px)',
-  borderRadius: '24px',
-  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+// Tarjeta de contenido
+const ContentCard = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: '16px',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
   width: '100%',
+  padding: theme.spacing(4),
+  
+  '@media (max-width: 600px)': {
+    padding: theme.spacing(2),
+    borderRadius: '12px',
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+  },
 }))
 
 // Título con animación
@@ -38,6 +51,17 @@ const AnimatedTitle = styled(Typography)({
   color: 'transparent',
   textAlign: 'center',
   marginBottom: '16px',
+  fontWeight: '700',
+  
+  '@media (max-width: 600px)': {
+    fontSize: '1.8rem !important',
+    lineHeight: 1.2,
+    marginBottom: '12px',
+  },
+  
+  '@media (max-width: 375px)': {
+    fontSize: '1.5rem !important',
+  },
 })
 
 function App() {
@@ -48,15 +72,15 @@ function App() {
       <ContentCard>
         <Stack direction="column" alignItems="center" spacing={3}>
           {/* Header section */}
-          <Stack direction="row" gap={2} alignItems="center" justifyContent="center">
+          <Stack direction={{ xs: 'column', sm: 'row' }} gap={2} alignItems="center" justifyContent="center">
             <JavaScriptLogo />
-            <AnimatedTitle variant="h3" as="h3" fontWeight="700">
+            <AnimatedTitle variant="h3" as="h1">
               JavaScript Quiz
             </AnimatedTitle>
           </Stack>
           
           {/* Content section */}
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%' }} className="game-container">
             {questions.length === 0 && <Start />}
             {questions.length > 0 && <Game />}
           </Box>

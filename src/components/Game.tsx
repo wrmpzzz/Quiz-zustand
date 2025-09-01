@@ -43,16 +43,59 @@ const QuestionComponent = ({ info }: { info: Question }) => {
   }
 
   return (
-    <Card variant="outlined" sx={{ bgcolor: "#222", p: 2, textAlign: "left", mt: 2 }}>
-      <Typography variant="h5" component="div">
+    <Card 
+      variant="outlined" 
+      sx={{ 
+        bgcolor: "#222", 
+        p: 2, 
+        textAlign: "left", 
+        mt: 2,
+        '@media (max-width: 600px)': {
+          p: 1.5,
+          mt: 1.5,
+        }
+      }} 
+      className="question-card"
+    >
+      <Typography 
+        variant="h5" 
+        component="div" 
+        className="question-title"
+        sx={{
+          '@media (max-width: 600px)': {
+            fontSize: '1.1rem !important',
+            lineHeight: 1.4,
+          }
+        }}
+      >
         {info.question}
       </Typography>
 
-      <SyntaxHighlighter language="javascript" style={gradientDark}>
+      <SyntaxHighlighter 
+        language="javascript" 
+        style={gradientDark}
+        className="code-block"
+        customStyle={{
+          borderRadius: '8px',
+          padding: '16px',
+          fontSize: '14px',
+          margin: '16px 0'
+        }}
+      >
         {info.code}
       </SyntaxHighlighter>
 
-      <List sx={{ bgcolor: "#333", borderRadius: 1 }} disablePadding>
+      <List 
+        sx={{ 
+          bgcolor: "#333", 
+          borderRadius: 1,
+          '@media (max-width: 600px)': {
+            marginTop: '16px',
+          }
+        }} 
+        disablePadding 
+        className="answers-list"
+      >
         {info.answers.map((answer, index) => (
           <ListItem key={index} disablePadding divider>
             <ListItemButton
@@ -64,10 +107,27 @@ const QuestionComponent = ({ info }: { info: Question }) => {
                   backgroundColor: info.userSelectedAnswer == null 
                     ? 'rgba(255, 255, 255, 0.1)' 
                     : undefined
+                },
+                '@media (max-width: 600px)': {
+                  padding: '12px 8px !important',
+                  minHeight: '56px !important',
                 }
               }}
+              className="answer-button"
             >
-              <ListItemText primary={answer} sx={{ textAlign: "center" }} />
+              <ListItemText 
+                primary={answer} 
+                sx={{ textAlign: "center" }} 
+                className="answer-text"
+                primaryTypographyProps={{
+                  sx: {
+                    '@media (max-width: 600px)': {
+                      fontSize: '0.95rem !important',
+                      lineHeight: 1.3,
+                    }
+                  }
+                }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -94,17 +154,43 @@ export const Game = () => {
 
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h5" component="h2">
+      <Stack 
+        direction={{ xs: 'column', sm: 'row' }} 
+        justifyContent="space-between" 
+        alignItems="center" 
+        mb={2} 
+        className="game-header"
+        gap={{ xs: 1, sm: 0 }}
+      >
+        <Typography 
+          variant="h5" 
+          component="h2" 
+          className="question-counter"
+          sx={{
+            '@media (max-width: 600px)': {
+              fontSize: '1.2rem !important',
+              textAlign: 'center',
+              marginBottom: '8px',
+            }
+          }}
+        >
           Pregunta {currentQuestion + 1} de {questions.length}
         </Typography>
         
-        <Stack direction="row" gap={1}>
+        <Stack direction="row" gap={1} className="navigation-buttons">
           <IconButton 
             onClick={goPreviousQuestion} 
             disabled={currentQuestion === 0}
             aria-label="Pregunta anterior"
             size="large"
+            className="nav-button"
+            sx={{
+              '@media (max-width: 600px)': {
+                width: '48px !important',
+                height: '48px !important',
+                padding: '12px !important',
+              }
+            }}
           >
             <ArrowBack />
           </IconButton>
@@ -113,6 +199,14 @@ export const Game = () => {
             disabled={currentQuestion === questions.length - 1}
             aria-label="Pregunta siguiente"
             size="large"
+            className="nav-button"
+            sx={{
+              '@media (max-width: 600px)': {
+                width: '48px !important',
+                height: '48px !important',
+                padding: '12px !important',
+              }
+            }}
           >
             <ArrowForward />
           </IconButton>
